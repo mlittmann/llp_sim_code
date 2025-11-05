@@ -5,3 +5,7 @@
 [submodule "SteeringMacros"]
 	path = SteeringMacros 
 	url = https://github.com/mlittmann/SteeringMacros
+
+[submodule "detector-simulation"]
+	path = detector-simulation 
+	url = https://github.com/madbaron/detector-simulation.git
