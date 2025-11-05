@@ -1,3 +1,7 @@
 [submodule "reco/MarlinTrkProcessors"]
 	path = reco/MarlinTrkProcessors
 	url = https://github.com/mlittmann/MarlinTrkProcessors
+
+[submodule "SteeringMacros"]
+	path = SteeringMacros 
+	url = https://github.com/mlittmann/SteeringMacros
