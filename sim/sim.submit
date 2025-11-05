@@ -1,0 +1,27 @@
+sample = $(sample)
+Universe = Vanilla
++SingularityImage = "/cvmfs/unpacked.cern.ch/ghcr.io/muoncollidersoft/mucoll-sim-alma9:v2.9.8-amd64"
+Requirements = ( HAS_SINGULARITY ) && ( HAS_CVMFS_unpacked_cern_ch )
+should_transfer_files = YES
+transfer_executable = False
+
+Executable = /bin/bash
+Arguments  = -l ./sim.sh --inputFile $(sample) --chunks 2500 --nEvents 2500 --pId $(Process)
+
+Output  = outputs/output.out.$(Cluster)-$(Process)
+Log     = outputs/log.$(Cluster)
+Error   = outputs/error.out.$(Cluster)-$(Process)
+
+transfer_input_files = /scratch/miralittmann/sim_code/sim/sim.sh, /scratch/miralittmann/sim_code/sim/hepmc/$(sample).hepmc, /scratch/miralittmann/sim_code/SteeringMacros/Sim/sim_steer_GEN_CONDOR.py, /scratch/miralittmann/sim_code/sim/tbl_files/$(sample).tbl, /scratch/miralittmann/sim_code/detector-simulation/geometries/MAIA_v0 
+transfer_output_files = $(sample)_sim$(Process).slcio
+transfer_output_remaps = "$(sample)_sim$(Process).slcio = /ospool/uc-shared/project/futurecolliders/miralittmann/MAIA/sim/$(sample)/$(sample)_sim$(Process).slcio"
+when_to_transfer_output = ON_EXIT
+
+request_cpus = 1
+request_disk = 2 GB
+request_memory = 8 GB
++ProjectName="collab.futurecolliders"
+
+Queue 100 sample from (
+    4500_10
+)

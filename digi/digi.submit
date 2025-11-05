@@ -1,0 +1,29 @@
+sample = $(sample)
+Beta = $(beta)
+beta_dir = $(beta_dir) 
+bib_option = bib
+Universe = Vanilla
++SingularityImage = "/cvmfs/unpacked.cern.ch/ghcr.io/muoncollidersoft/mucoll-sim-alma9:v2.9.7"
+Requirements = ( HAS_SINGULARITY ) && ( HAS_CVMFS_unpacked_cern_ch ) && ( HAS_CVMFS_public_uc_osgstorage_org )
+should_transfer_files = YES
+Output  = outputs/output.out.$(Cluster)-$(Process)
+Log     = outputs/log.$(Cluster)
+Error   = outputs/error.out.$(Cluster)-$(Process)
+transfer_input_files = /scratch/miralittmann/sim_code/reco/MarlinTrkProcessors/build/lib/libMarlinTrkProcessors.so, /ospool/uc-shared/project/futurecolliders/miralittmann/sim/efficiency/$(sample)/$(sample)_sim$(Step).slcio, /scratch/miralittmann/sim_code/mucoll-benchmarks/digitisation/k4run/digi_steer.py 
+transfer_output_files = $(sample)_digi$(Step).slcio
+transfer_output_remaps = "$(sample)_digi$(Step).slcio = /ospool/uc-shared/project/futurecolliders/miralittmann/digi/sliding_windows/$(beta_dir)/$(sample)/$(sample)_digi$(Step).slcio"
+when_to_transfer_output = ON_EXIT
+request_cpus = 1
+request_disk = 4 GB
+request_memory = 8 GB
++ProjectName="collab.futurecolliders"
+Executable = /scratch/miralittmann/sim_code/digi/digi.sh
+Arguments = --inputFile $(sample) --chunks 500 --nEvents 500 --pId $(Step) --BIB 19 --beta $(Beta)
+Queue 500 sample, beta, beta_dir from (
+    3500_10, 0.5, beta_0p5_bib
+    3500_10, 0.6, beta_0p6_bib
+    3500_10, 0.7, beta_0p7_bib
+    3500_10, 0.8, beta_0p8_bib
+    3500_10, 0.9, beta_0p9_bib
+    3500_10, 1, beta_1_bib
+)

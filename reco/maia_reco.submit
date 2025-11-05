@@ -1,0 +1,22 @@
+sample = 4500_10 
+bib_num = 19
+bib_option = bib
+window = p4_2p2_10
+Universe = Vanilla
++SingularityImage = "/cvmfs/unpacked.cern.ch/ghcr.io/muoncollidersoft/mucoll-sim-alma9:v2.9.7"
+Requirements = ( HAS_SINGULARITY ) && ( HAS_CVMFS_unpacked_cern_ch ) && ( HAS_CVMFS_public_uc_osgstorage_org )
+should_transfer_files = YES
+Output  = outputs/output.out.$(Cluster)-$(Process)
+Log     = outputs/log.$(Cluster)
+Error   = outputs/error.out.$(Cluster)-$(Process)
+transfer_input_files = /ospool/uc-shared/project/futurecolliders/miralittmann/MAIA/sim/$(sample)/$(sample)_sim$(Process).slcio, /scratch/miralittmann/sim_code/mucoll-benchmarks/reconstruction/k4run/maia_reco_steer.py, /scratch/miralittmann/sim_code/detector-simulation/geometries/MAIA_v0, /scratch/miralittmann/sim_code/ACTSTracking_MAIA/data/MAIA_v0_material.json, /scratch/miralittmann/sim_code/ACTSTracking_MAIA/data/MAIA_v0.root, /scratch/miralittmann/sim_code/ACTSTracking_MAIA/data/MAIA_v0.json, /scratch/miralittmann/sim_code/reco/MarlinTrkProcessors/build/lib/libMarlinTrkProcessors.so
+transfer_output_files = $(sample)_reco$(Process).slcio
+transfer_output_remaps = "$(sample)_reco$(Process).slcio = /ospool/uc-shared/project/futurecolliders/miralittmann/MAIA/reco/$(window)/$(bib_option)/$(sample)/$(sample)_reco$(Process).slcio"
+when_to_transfer_output = ON_EXIT
+request_cpus = 1
+request_disk = 2 GB
+request_memory = 8 GB
++ProjectName="collab.futurecolliders"
+Executable = /scratch/miralittmann/sim_code/reco/maia_reco.sh
+Arguments = --inputFile $(sample) --chunks 100 --nEvents 100 --pId $(Process) --BIB $(bib_num)
+Queue 100

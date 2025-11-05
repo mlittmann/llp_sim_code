@@ -1,0 +1,22 @@
+sample = $(sample)
+bib_option = bib
+Universe = Vanilla
++SingularityImage = "/cvmfs/unpacked.cern.ch/ghcr.io/muoncollidersoft/mucoll-sim-alma9:v2.9.7"
+Requirements = ( HAS_SINGULARITY ) && ( HAS_CVMFS_unpacked_cern_ch ) && ( HAS_CVMFS_public_uc_osgstorage_org )
+should_transfer_files = YES
+Output  = outputs/output.out.$(Cluster)-$(Process)
+Log     = outputs/log.$(Cluster)
+Error   = outputs/error.out.$(Cluster)-$(Process)
+transfer_input_files = /ospool/uc-shared/project/futurecolliders/miralittmann/sim/efficiency/$(sample)/$(sample)_sim$(Step).slcio, /scratch/miralittmann/sim_code/mucoll-benchmarks/digitisation/k4run/digi_steer.py 
+transfer_output_files = $(sample)_digi$(Step).slcio
+transfer_output_remaps = "$(sample)_digi$(Step).slcio = /ospool/uc-shared/project/futurecolliders/miralittmann/digi/sliding_windows/beta_1_bib/$(sample)/$(sample)_digi$(Step).slcio"
+when_to_transfer_output = ON_EXIT
+request_cpus = 1
+request_disk = 4 GB
+request_memory = 8 GB
++ProjectName="collab.futurecolliders"
+Executable = /scratch/miralittmann/sim_code/digi/digi.sh
+Arguments = --inputFile $(sample) --chunks 500 --nEvents 500 --pId $(Step) --BIB 19 
+Queue 500 sample from (
+    2500_10
+)
