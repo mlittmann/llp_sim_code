@@ -9,3 +9,7 @@
 [submodule "detector-simulation"]
 	path = detector-simulation 
 	url = https://github.com/madbaron/detector-simulation.git
+
+[submodule "mucoll-benchmarks"]
+	path = mucoll-benchmarks
+	url = https://github.com/mlittmann/mucoll-benchmarks 
