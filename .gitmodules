@@ -1,0 +1,3 @@
+[submodule "reco/MarlinTrkProcessors"]
+	path = reco/MarlinTrkProcessors
+	url = https://github.com/mlittmann/MarlinTrkProcessors
