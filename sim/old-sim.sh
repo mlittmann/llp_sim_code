@@ -5,8 +5,7 @@ echo "<<<Setup some environment"
 
 
 echo "source setup_mucoll --> "
-. /opt/spack/opt/spack/linux-almalinux9-x86_64/gcc-11.5.0/mucoll-stack-master-h2ssl2yh2yduqnhsv2i2zcjws74v7mcq/setup.sh
-
+source /opt/setup_mucoll.sh
 echo ">>>completed"
 echo "<<<Check if we can find executables"
 which ddsim
@@ -60,7 +59,7 @@ export SAMPLE="$input_file"
 export TBL_FILE="${input_file}.tbl"
 
 # Corrected command assignment
-command="ddsim --steeringFile steer_baseline.py --inputFile ${input_file}.hepmc --physics.pdgfile ${input_file}.tbl --outputFile ${input_file}_sim${proc_id}.slcio --numberOfEvents ${events_per_chunk} --skipNEvents ${events_to_skip}"
+command="ddsim --steeringFile old-steer_baseline.py --inputFile ${input_file}.hepmc --physics.pdgfile ${input_file}.tbl --outputFile ${input_file}_sim${proc_id}.slcio --numberOfEvents ${events_per_chunk} --skipNEvents ${events_to_skip}"
 
 # Print or execute the constructed command
 echo "Command: $command"
