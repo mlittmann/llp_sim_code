@@ -3,7 +3,7 @@ echo $HOSTNAME
 echo "<<<Singularity ENVIRONMENT:" $SINGULARITY_NAME
 echo "<<<Setup some environment"
 echo "source source /opt/setup_mucoll.sh --> "
-. /opt/spack/opt/spack/linux-almalinux9-x86_64/gcc-11.5.0/mucoll-stack-master-h2ssl2yh2yduqnhsv2i2zcjws74v7mcq/setup.sh
+source /opt/setup_mucoll.sh 
 echo ">>>completed"
 echo "<<<Check if we can find executables"
 
@@ -57,7 +57,7 @@ echo "Proc id: ${proc_id}"
 MUPLUS="/cvmfs/public-uc.osgstorage.org/ospool/uc-shared/public/futurecolliders/MuColl_v1/BIB10TeV/sim_mp_pruned/"
 MUMINUS="/cvmfs/public-uc.osgstorage.org/ospool/uc-shared/public/futurecolliders/MuColl_v1/BIB10TeV/sim_mm_pruned/"
 
-command="k4run digi_steer.py --LcioEvent.Files ${input_file}_sim${proc_id}.slcio --outputFile ${input_file}_digi${proc_id}.slcio --doOverlayFull --OverlayFullPathToMuPlus ${MUPLUS} --OverlayFullPathToMuMinus ${MUMINUS} --OverlayFullNumberBackground ${bib}"
+command="k4run old-digi_steer.py --LcioEvent.Files ${input_file}_sim${proc_id}.slcio --outputFile ${input_file}_digi${proc_id}.slcio --doOverlayFull --OverlayFullPathToMuPlus ${MUPLUS} --OverlayFullPathToMuMinus ${MUMINUS} --OverlayFullNumberBackground ${bib}"
 # To not run with BIB set bib = 0
 # Print the constructed command
 echo "Executing command: $command"
